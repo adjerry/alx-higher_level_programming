@@ -1,6 +1,5 @@
 #!/usr/bin/python3 
  """Defines unittests for models/square.py. 
-  
  Unittest classes: 
      TestSquare_instantiation - line 24 
      TestSquare_size - line 88 
@@ -16,9 +15,8 @@
  import io 
  import sys 
  import unittest 
- from models.base import Base 
- from models.square import Square 
-  
+ from models.base import Base
+ from models.square import Square
   
  class TestSquare_instantiation(unittest.TestCase): 
      """Unittests for testing instantiation of the Square class.""" 
@@ -57,8 +55,7 @@
   
      def test_size_private(self): 
          with self.assertRaises(AttributeError): 
-             print(Square(10, 2, 3, 4).__size) 
-  
+             print(Square(10, 2, 3, 4).__size)
      def test_size_getter(self): 
          self.assertEqual(5, Square(5, 2, 3, 9).size) 
   
@@ -576,7 +573,7 @@
          s = Square(10, 10, 10, 10) 
          s.update(id=None, size=7, x=18) 
          correct = "[Square] ({}) 18/10 - 7".format(s.id) 
-         self.assertEqual(correct, str(s)) 
+         self.assertEqual(correct, str(s))
   
      def test_update_kwargs_twice(self): 
          s = Square(10, 10, 10, 10) 
