@@ -1,32 +1,31 @@
 #!/usr/bin/python3
-""" List all state objects using sqlalchemy """
+"""
+List all state objects using sqlalchemy
+"""
 
+from sys import argv
 from relationship_state import Base, State
 from relationship_city import City
-from sqlalchemy.orm.session import sessionmaker
 from sqlalchemy import create_engine
-from sys import argv
+from sqlalchemy.orm import sessionmaker
 
+if __name__ == "__main__":
+    """
+    Access to the database and get the cities
+    from the database.
+    """
 
-if __name__ == '__main__':
-
-    username = argv[1]
-    password = argv[2]
-    db_name = argv[3]
-
-    engine = create_engine('mysql+mysqldb://{}:{}@localhost:3306/{}'
-            .format(username, password, db_name))
-
+    db_uri = 'mysql+mysqldb://{}:{}@localhost:3306/{}'.format(
+            argv[1], argv[2], argv[3])
+    engine = create_engine(db_uri)
     Base.metadata.create_all(engine)
-
     Session = sessionmaker(bind=engine)
+
     session = Session()
+    cal_state = State(name='California')
+    sfr_city = City(name='San Francisco')
+    cal_state.cities.append(sfr_city)
 
-    new_state = State(name='California')
-    new_city = City(name='San Francisco', state=new_state)
-    new_state.cities.append(new_city)
-
-    session.add(new_state)
-    session.add(new_city)
-
+    session.add(cal_state)
     session.commit()
+    session.close()
